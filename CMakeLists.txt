@@ -21,7 +21,8 @@ hunter_add_package(Boost COMPONENTS  thread filesystem)
 find_package(Boost CONFIG REQUIRED thread filesystem)
 find_package(Threads)
 
-add_library(${PROJECT_NAME} STATIC)
+add_library(${PROJECT_NAME} STATIC
+         include/Server.h include/Scanner.hpp)
 
 target_link_libraries(${PROJECT_NAME}
         Beast::Beast
@@ -30,7 +31,8 @@ target_link_libraries(${PROJECT_NAME}
         )
 
 add_executable(demo
-        ${CMAKE_CURRENT_SOURCE_DIR}/demo/main.cpp)
+        ${CMAKE_CURRENT_SOURCE_DIR}/demo/main.cpp
+        sources/Scanner.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
