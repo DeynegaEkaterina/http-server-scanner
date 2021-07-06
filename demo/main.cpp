@@ -19,7 +19,6 @@ using tcp = boost::asio::ip::tcp;
       net::io_context ioc{1};
       tcp::acceptor acceptor{ioc, {address, port}};
       std::cout << "=====Scan server started====" << endl;
-
       for (;;) {
         tcp::socket socket{ioc};
         acceptor.accept(socket);

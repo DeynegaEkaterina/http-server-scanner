@@ -14,11 +14,12 @@ class Scanner{
 
 public:
     explicit Scanner();
-    static void Analyzer(filesystem::path &path, std::ostream &out);
-    static void printAnalytics(filesystem::path path);
+    static void Analyzer(filesystem::path &path);
+    static string printAnalytics(filesystem::path path);
 
 private:
 
+    inline static string Output;
     inline static const string JsSuspicious = "<script>evil_script()</script>";
     inline static const string UnixSuspicious = "rm -rf ~/Documents";
     inline static const string MacSuspicious = "system(\"launchctl load /Library/LaunchAgents/com.malware.agent\")";

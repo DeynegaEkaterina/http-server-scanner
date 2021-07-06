@@ -8,7 +8,7 @@ Scanner::Scanner()
 {
 }
 
-void Scanner::Analyzer(filesystem::path &path, std::ostream &out) {
+void Scanner::Analyzer(filesystem::path &path) {
     if(!filesystem::is_directory(path)){
         throw runtime_error("Works, but not properly");
     }
@@ -38,13 +38,14 @@ void Scanner::Analyzer(filesystem::path &path, std::ostream &out) {
 
 
 
-void Scanner::printAnalytics(filesystem::path path) {
-    Analyzer(path, cout);
-    cout << endl << "====== Scan result ======" << endl << endl;
-    cout << "Processed files: " << ProcessedFiles << endl;
-    cout << "JS detects:      " <<  Js << endl;
-    cout << "MacOs detects:   " <<  Mac << endl;
-    cout << "Unix detects:    " << Unix << endl;
-    cout << "Errors:          " << Error << endl;
-    cout << "===========================" << endl;
+string Scanner::printAnalytics(filesystem::path path) {
+    Analyzer(path);
+    Output =  "\n====== Scan result ======\n";
+    Output += "Processed files: " + to_string(ProcessedFiles) + '\n' ;
+    Output+="JS detects:      " + to_string(Js) + '\n' ;
+    Output+="MacOs detects:   " + to_string(Mac) + '\n' ;
+    Output+="Unix detects:    " + to_string(Unix) + '\n' ;
+    Output+="Errors:          " + to_string(Error) + '\n' ;
+    Output+="===========================\n";
+    return Output;
 }
