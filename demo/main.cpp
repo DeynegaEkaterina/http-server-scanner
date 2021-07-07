@@ -1,11 +1,10 @@
-
 #include "Server.h"
 #include <boost/asio/ip/tcp.hpp>
 #include <cstdlib>
 #include <iostream>
 #include <memory>
 #include <thread>
-#include "Scanner.hpp"
+
 
 namespace beast = boost::beast;
 namespace http = beast::http;

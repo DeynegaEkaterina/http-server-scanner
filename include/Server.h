@@ -1,5 +1,5 @@
 //
-// Created by ekaterina on 28.03.2021.
+// Created by ekaterina on 05.07.21
 //
 #ifndef SUGGESTION_SERVER_H
 #define SUGGESTION_SERVER_H
@@ -13,11 +13,7 @@
 #include <boost/config.hpp>
 #include <cstdlib>
 #include <iostream>
-#include <memory>
 #include <string>
-#include <thread>
-#include <shared_mutex>
-#include <iomanip>
 #include "filesystem"
 
 namespace beast = boost::beast;
@@ -31,7 +27,6 @@ void handle_request(http::request<Body, http::basic_fields<Allocator>> &&req,
                     Send &&send) {
     std::string path_to_directory = req.body();
     std::cout << req.body() << std::endl;
-
     string output = Scanner::printAnalytics(req.body());
     http::response<http::string_body> res{http::status::bad_request,
                                           req.version()};
@@ -42,6 +37,8 @@ void handle_request(http::request<Body, http::basic_fields<Allocator>> &&req,
     res.prepare_payload();
     return send(std::move(res));
 }
+
+
 
 void fail(beast::error_code ec, char const *what) {
   std::cerr << what << ": " << ec.message() << "\n";
@@ -59,8 +56,6 @@ struct send_lambda {
   template<bool isRequest, class Body, class Fields>
   void operator()(http::message<isRequest, Body, Fields> &&msg) const {
     close_ = msg.need_eof();
-
-
     http::serializer<isRequest, Body, Fields> sr{msg};
     http::write(stream_, sr, ec_);
   }

@@ -30,7 +30,7 @@ target_link_libraries(${PROJECT_NAME}
         Boost::thread
         )
 
-add_executable(demo
+add_executable(scan_service
         ${CMAKE_CURRENT_SOURCE_DIR}/demo/main.cpp
         sources/Scanner.cpp)
 
@@ -39,7 +39,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         "$<INSTALL_INTERFACE:include>"
         )
 
-target_link_libraries(demo ${PROJECT_NAME}
+target_link_libraries(scan_service ${PROJECT_NAME}
         Beast::Beast
         Boost::filesystem
         Boost::thread)

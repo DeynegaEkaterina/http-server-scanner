@@ -1,5 +1,5 @@
 //
-// Created by ekaterina on 02.07.2021.
+// Created by ekaterina on 04.07.2021.
 //
 
 #ifndef SCANNER_SCANNER_HPP
@@ -18,8 +18,7 @@ public:
     static string printAnalytics(filesystem::path path);
 
 private:
-
-    inline static string Output;
+    inline static string Output{};
     inline static const string JsSuspicious = "<script>evil_script()</script>";
     inline static const string UnixSuspicious = "rm -rf ~/Documents";
     inline static const string MacSuspicious = "system(\"launchctl load /Library/LaunchAgents/com.malware.agent\")";
@@ -28,6 +27,7 @@ private:
     inline static int Unix = 0;
     inline static int ProcessedFiles = 0;
     inline static int Error = 0;
+    inline static long elapsed_seconds = 0;
 };
 
 

@@ -9,6 +9,7 @@ Scanner::Scanner()
 }
 
 void Scanner::Analyzer(filesystem::path &path) {
+    auto start = std::chrono::high_resolution_clock::now();
     if(!filesystem::is_directory(path)){
         throw runtime_error("Works, but not properly");
     }
@@ -34,6 +35,8 @@ void Scanner::Analyzer(filesystem::path &path) {
             ProcessedFiles++;
         }
     }
+    auto finish = std::chrono::high_resolution_clock::now();
+    elapsed_seconds +=std::chrono::duration_cast<std::chrono::microseconds>(finish - start).count();
 }
 
 
@@ -42,10 +45,11 @@ string Scanner::printAnalytics(filesystem::path path) {
     Analyzer(path);
     Output =  "\n====== Scan result ======\n";
     Output += "Processed files: " + to_string(ProcessedFiles) + '\n' ;
-    Output+="JS detects:      " + to_string(Js) + '\n' ;
-    Output+="MacOs detects:   " + to_string(Mac) + '\n' ;
-    Output+="Unix detects:    " + to_string(Unix) + '\n' ;
-    Output+="Errors:          " + to_string(Error) + '\n' ;
-    Output+="===========================\n";
+    Output += "JS detects:      " + to_string(Js) + '\n' ;
+    Output += "MacOs detects:   " + to_string(Mac) + '\n' ;
+    Output += "Unix detects:    " + to_string(Unix) + '\n' ;
+    Output += "Errors:          " + to_string(Error) + '\n' ;
+    Output += "Execution time:  " + to_string(elapsed_seconds) + " mcrs" + '\n';
+    Output += "===========================\n";
     return Output;
 }
